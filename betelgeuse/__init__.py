@@ -793,19 +793,11 @@ def test_run(
         element.set('name', 'polarion-testcase-id')
         element.set('value', source_test_case.fields['id'])
         test_properties.append(element)
-        if (pytest_parameters and
-                source_test_case.fields.get('parametrized') == 'yes'):
+        if pytest_parameters:
             element = ElementTree.Element('property')
             element.set('name', 'polarion-parameter-pytest parameters')
             element.set('value', pytest_parameters)
             test_properties.append(element)
-        elif (pytest_parameters and
-              source_test_case.fields.get('parametrized') != 'yes'):
-            click.echo(
-                '{} has a parametrized result of {} but its parametrized '
-                'field is not set to yes. Only one result will be recorded.'
-                .format(junit_test_case_id, pytest_parameters)
-            )
         testcase.append(test_properties)
     testsuites.append(testsuite)
 
